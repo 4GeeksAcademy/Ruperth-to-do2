@@ -10,7 +10,7 @@ const Home = () => {
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
             setTodos(todos.concat(inputValue));
-            setInputValue(""); // Reset input value to empty string
+            setInputValue(""); 
         }
     };
 
@@ -42,7 +42,7 @@ const Home = () => {
                     </li>
                 ))}
             </ul>
-            <div> {todos.length} tasks</div>
+            <div> {todos.length} tasks left</div>
         </div>
 		
     );
