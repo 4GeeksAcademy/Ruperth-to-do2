@@ -1,26 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
-//create your first component
+
 const Home = () => {
-	return (
-		<div className="text-center">
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
-	);
+    const [inputValue, setInputValue] = useState("");
+    const [todos, setTodos] = useState([]);
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            setTodos(todos.concat(inputValue));
+            setInputValue(""); // Reset input value to empty string
+        }
+    };
+
+    const handleDelete = (index) => {
+        setTodos(todos.filter((_, i) => i !== index));
+    };
+
+    return (
+        <div className="container">
+            <h1>To do </h1>
+            <ul>
+                <li>
+                    <input
+                        type="text"
+                        onChange={(e) => setInputValue(e.target.value)}
+                        value={inputValue}
+                        onKeyPress={handleKeyPress}
+                        placeholder="What do you need to do?"/>
+                </li>
+                {todos.map((item, index) => (
+                    <li key={index} style={{ display: "flex", justifyContent: "space-between" }}>
+                        <span>
+                            <i class="bi bi-star-fill"></i>
+                            {item}
+                        </span>{" "}
+                        <button class="buttonDelete" onClick={() => handleDelete(index)}>
+						DELETE
+                        </button>
+                    </li>
+                ))}
+            </ul>
+            <div> {todos.length} tasks</div>
+        </div>
+		
+    );
+	
 };
 
 export default Home;
